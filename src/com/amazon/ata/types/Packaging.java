@@ -73,6 +73,7 @@ public class Packaging {
                 this.height.compareTo(item.getHeight()) > 0;
     }
 
+
     /**
      * Returns the mass of the packaging in grams. The packaging weighs 1 gram per square centimeter.
      * @return the mass of the packaging
