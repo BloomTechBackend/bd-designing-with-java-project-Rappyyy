@@ -3,6 +3,7 @@ package com.amazon.ata.types;
 import java.math.BigDecimal;
 
 public class PolyBag extends Packaging{
+    private BigDecimal volume;
     /**
      * Instantiates a new Packaging object.
      *
@@ -12,11 +13,13 @@ public class PolyBag extends Packaging{
      * @param height   - the height of the package
      */
     public PolyBag(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
-        super(material, length, width, height);
+        super(material);
     }
 
     @Override
+    // Look for formula in directions for mass
     public BigDecimal getMass() {
+
         return super.getMass();
     }
 
