@@ -59,7 +59,6 @@ public class Packaging {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Packaging packaging = (Packaging) o;
         return getMaterial() == packaging.getMaterial();
     }
