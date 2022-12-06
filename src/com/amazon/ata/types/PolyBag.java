@@ -1,27 +1,47 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class PolyBag extends Packaging{
+    private BigDecimal volume;
     /**
      * Instantiates a new Packaging object.
      *
      * @param material - the Material of the package
-     * @param length   - the length of the package
-     * @param width    - the width of the package
-     * @param height   - the height of the package
      */
-    public PolyBag(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
-        super(material, length, width, height);
+    public PolyBag(Material material, BigDecimal volume) {
+        super(material);
+        this.volume = volume;
     }
 
-    @Override
+
     public BigDecimal getMass() {
-        return super.getMass();
+        double mass = Math.ceil(Math.sqrt(volume.doubleValue()) * 0.6);
+        return BigDecimal.valueOf(mass);
+    }
+
+    public boolean canFitItem(Item item) {
+        return this.volume.compareTo(item.getHeight().multiply(item.getLength().multiply(item.getWidth()))) > 0;
     }
 
     @Override
-    public boolean canFitItem(Item item) {
-        return super.canFitItem(item);
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        PolyBag polyBag = (PolyBag) o;
+        return volume.equals((polyBag.volume));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(volume);
     }
 }

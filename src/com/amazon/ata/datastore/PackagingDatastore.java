@@ -37,8 +37,7 @@ public class PackagingDatastore {
     private FcPackagingOption createFcPackagingOption(String fcCode, Material material,
                                                       String length, String width, String height) {
         FulfillmentCenter fulfillmentCenter = new FulfillmentCenter(fcCode);
-        Packaging packaging = new Packaging(material, new BigDecimal(length), new BigDecimal(width),
-                new BigDecimal(height));
+        Packaging packaging = new Packaging(material);
 
         return new FcPackagingOption(fulfillmentCenter, packaging);
     }
