@@ -1,6 +1,7 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Box extends Packaging {
 
@@ -24,7 +25,6 @@ public class Box extends Packaging {
         this.width =  width;
         this.height = height;
     }
-
 
 
     public BigDecimal getLength() {
@@ -55,5 +55,19 @@ public class Box extends Packaging {
         BigDecimal longSidesArea = width.multiply(height).multiply(two);
 
         return endsArea.add(shortSidesArea).add(longSidesArea);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Box)) return false;
+        if (!super.equals(o)) return false;
+        Box box = (Box) o;
+        return getLength().equals(box.getLength()) && getHeight().equals(box.getHeight()) && getWidth().equals(box.getWidth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getLength(), getHeight(), getWidth());
     }
 }
