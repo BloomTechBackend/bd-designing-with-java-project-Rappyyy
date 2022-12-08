@@ -19,13 +19,13 @@ import static org.mockito.MockitoAnnotations.initMocks;
 public class PrepareShipmentActivityTest {
 
     private PrepareShipmentRequest request = PrepareShipmentRequest.builder()
-        .withFcCode("fcCode")
-        .withItemAsin("itemAsin")
-        .withItemDescription("description")
-        .withItemLength("10.0")
-        .withItemWidth("10.0")
-        .withItemHeight("10.0")
-        .build();
+            .withFcCode("fcCode")
+            .withItemAsin("itemAsin")
+            .withItemDescription("description")
+            .withItemLength("10.0")
+            .withItemWidth("10.0")
+            .withItemHeight("10.0")
+            .build();
 
     @Mock
     private ShipmentService shipmentService;
@@ -54,7 +54,7 @@ public class PrepareShipmentActivityTest {
         // PrepareShipmentActivity activity = new PrepareShipmentActivity(shipmentService, dataConverter);
         PrepareShipmentActivity activity = new PrepareShipmentActivity(shipmentService);
         when(shipmentService.findShipmentOption(any(Item.class), any(FulfillmentCenter.class)))
-            .thenReturn(ShipmentOption.builder().build());
+                .thenReturn(ShipmentOption.builder().build());
 
         // WHEN
         // PrepareShipmentResponse response = activity.handleRequest(request);

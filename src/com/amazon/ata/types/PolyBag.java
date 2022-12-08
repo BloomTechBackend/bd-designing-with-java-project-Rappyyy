@@ -1,7 +1,6 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class PolyBag extends Packaging {
     private double mass;
@@ -40,19 +39,5 @@ public class PolyBag extends Packaging {
         mass = Math.ceil(Math.sqrt(vVolume) * v);
 
         return BigDecimal.valueOf(mass);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        PolyBag polyBag = (PolyBag) o;
-        return Double.compare(polyBag.mass, mass) == 0 && volume.equals(polyBag.volume);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), mass, volume);
     }
 }

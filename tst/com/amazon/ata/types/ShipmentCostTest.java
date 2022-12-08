@@ -15,9 +15,9 @@ public class ShipmentCostTest {
     private static final Packaging PACKAGING = new Box(Material.CORRUGATE, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.TEN);
     private static FulfillmentCenter FC = new FulfillmentCenter("IND123");
     private ShipmentOption SHIPMENT_OPTION = ShipmentOption.builder()
-        .withFulfillmentCenter(FC)
-        .withPackaging(PACKAGING)
-        .build();
+            .withFulfillmentCenter(FC)
+            .withPackaging(PACKAGING)
+            .build();
 
     private ShipmentCost shipmentCost;
 

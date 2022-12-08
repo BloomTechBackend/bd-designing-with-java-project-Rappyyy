@@ -60,8 +60,8 @@ class PackagingDAOTest {
 
         // THEN
         assertEquals(1, shipmentOptions.size(),
-            "When fulfillment center has packaging that can fit item, return a ShipmentOption with the item, "
-                + "fulfillment center, and packaging that can fit the item.");
+                "When fulfillment center has packaging that can fit item, return a ShipmentOption with the item, "
+                        + "fulfillment center, and packaging that can fit the item.");
     }
 
     @Test
@@ -74,8 +74,8 @@ class PackagingDAOTest {
 
         // THEN
         assertEquals(1, shipmentOptions.size(),
-            "When fulfillment center has packaging that can fit item, return a ShipmentOption with the item, "
-                + "fulfillment center, and packaging that can fit the item.");
+                "When fulfillment center has packaging that can fit item, return a ShipmentOption with the item, "
+                        + "fulfillment center, and packaging that can fit the item.");
     }
 
     @Test
@@ -88,9 +88,26 @@ class PackagingDAOTest {
 
         // THEN
         assertEquals(2, shipmentOptions.size(),
-            "When fulfillment center has multiple packaging that can fit item, return a ShipmentOption "
-                + "for each.");
+                "When fulfillment center has multiple packaging that can fit item, return a ShipmentOption "
+                        + "for each.");
     }
+    //ADD below new test
+    @Test
+    public void IADfinder() throws Exception {
+        // GIVEN
+        packagingDAO = new PackagingDAO(datastore);
+
+        // WHEN
+        List<ShipmentOption> shipmentOptions = packagingDAO.findShipmentOptions(smallItem, iad2);
+
+        // THEN
+        assertEquals(3, shipmentOptions.size(),
+                "When fulfillment center has packaging that can fit item, return a ShipmentOption with the item, "
+                        + "fulfillment center, and packaging that can fit the item.");
+    }
+
+
+
 
     private Item createItem(String length, String width, String height) {
         return Item.builder()

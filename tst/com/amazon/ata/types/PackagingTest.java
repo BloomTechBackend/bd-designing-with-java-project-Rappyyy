@@ -3,9 +3,7 @@ package com.amazon.ata.types;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -22,17 +20,17 @@ public class PackagingTest {
 
     @BeforeEach
     public void setUp() {
-        packaging = new Box(Material.CORRUGATE, packagingLength, packagingWidth, packagingHeight);
+        packaging = new Box(packagingMaterial, packagingLength, packagingWidth, packagingHeight);
     }
 
     @Test
     public void canFitItem_itemLengthTooLong_doesNotFit() {
         // GIVEN
         Item item = Item.builder()
-            .withLength(packagingLength.add(BigDecimal.ONE))
-            .withWidth(packagingWidth)
-            .withHeight(packagingHeight)
-            .build();
+                .withLength(packagingLength.add(BigDecimal.ONE))
+                .withWidth(packagingWidth)
+                .withHeight(packagingHeight)
+                .build();
 
         // WHEN
         boolean canFit = packaging.canFitItem(item);
@@ -45,10 +43,10 @@ public class PackagingTest {
     public void canFitItem_itemWidthTooLong_doesNotFit() {
         // GIVEN
         Item item = Item.builder()
-            .withLength(packagingLength)
-            .withWidth(packagingWidth.add(BigDecimal.ONE))
-            .withHeight(packagingHeight)
-            .build();
+                .withLength(packagingLength)
+                .withWidth(packagingWidth.add(BigDecimal.ONE))
+                .withHeight(packagingHeight)
+                .build();
 
         // WHEN
         boolean canFit = packaging.canFitItem(item);
@@ -61,10 +59,10 @@ public class PackagingTest {
     public void canFitItem_itemHeightTooLong_doesNotFit() {
         // GIVEN
         Item item = Item.builder()
-            .withLength(packagingLength)
-            .withWidth(packagingWidth)
-            .withHeight(packagingHeight.add(BigDecimal.ONE))
-            .build();
+                .withLength(packagingLength)
+                .withWidth(packagingWidth)
+                .withHeight(packagingHeight.add(BigDecimal.ONE))
+                .build();
 
         // WHEN
         boolean canFit = packaging.canFitItem(item);
@@ -77,10 +75,10 @@ public class PackagingTest {
     public void canFitItem_itemSameSizeAsBox_doesNotFit() {
         // GIVEN
         Item item = Item.builder()
-            .withLength(packagingLength)
-            .withWidth(packagingWidth)
-            .withHeight(packagingHeight)
-            .build();
+                .withLength(packagingLength)
+                .withWidth(packagingWidth)
+                .withHeight(packagingHeight)
+                .build();
 
         // WHEN
         boolean canFit = packaging.canFitItem(item);
@@ -93,10 +91,10 @@ public class PackagingTest {
     public void canFitItem_itemSmallerThanBox_doesFit() {
         // GIVEN
         Item item = Item.builder()
-            .withLength(packagingLength.subtract(BigDecimal.ONE))
-            .withWidth(packagingWidth.subtract(BigDecimal.ONE))
-            .withHeight(packagingHeight.subtract(BigDecimal.ONE))
-            .build();
+                .withLength(packagingLength.subtract(BigDecimal.ONE))
+                .withWidth(packagingWidth.subtract(BigDecimal.ONE))
+                .withHeight(packagingHeight.subtract(BigDecimal.ONE))
+                .build();
 
         // WHEN
         boolean canFit = packaging.canFitItem(item);
@@ -108,14 +106,14 @@ public class PackagingTest {
     @Test
     public void getMass_calculatesMass_returnsCorrectMass() {
         // GIVEN
-        Packaging packaging = new Box(Material.CORRUGATE, packagingLength, packagingWidth, packagingHeight);
+        packaging = new Box(Material.CORRUGATE, BigDecimal.TEN, BigDecimal.TEN, BigDecimal.valueOf(20));
 
         // WHEN
         BigDecimal mass = packaging.getMass();
 
         // THEN
         assertEquals(BigDecimal.valueOf(1000), mass,
-            "Item smaller than the box should fit in the package.");
+                "Item smaller than the box should fit in the package.");
     }
 
     @Test
@@ -177,11 +175,4 @@ public class PackagingTest {
         // WHEN + THEN
         assertEquals(packaging.hashCode(), other.hashCode(), "Equal objects should have equal hashCodes");
     }
-    @Test
-    public void height_width_length_variables_removed_from_packaging_class() {
-        Field[] fields = Packaging.class.getDeclaredFields();
-        assertNotEquals(true, Arrays.stream(fields).anyMatch(f -> f.getName().equals("height")), "height attribute should be removed from Packaging class since it was moved to Box class");
-        assertNotEquals(true, Arrays.stream(fields).anyMatch(f -> f.getName().equals("width")),  "width attribute should be removed from Packaging class since it was moved to Box class");
-        assertNotEquals(true, Arrays.stream(fields).anyMatch(f -> f.getName().equals("length")), "length attribute should be removed from Packaging class since it was moved to Box class");
-        }
 }
