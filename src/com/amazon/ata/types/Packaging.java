@@ -10,29 +10,32 @@ import java.util.Objects;
  * Items can fit in the packaging so long as their dimensions are all smaller than
  * the packaging's dimensions.
  */
-public class Packaging {
+public abstract class Packaging {
     /**
      * The material this packaging is made of.
      */
     private Material material;
 
+    /**
+     * This packaging's length.
+     */
+
 
     /**
      * Instantiates a new Packaging object.
-   */
+     * @param material - the Material of the package
+     */
     public Packaging(Material material) {
-
         this.material = material;
 //        this.length = length;
 //        this.width = width;
 //        this.height = height;
     }
 
-
-
     public Material getMaterial() {
         return material;
     }
+
 
 
     /**
@@ -41,20 +44,15 @@ public class Packaging {
      * @param item the item to test fit for
      * @return whether the item will fit in this packaging
      */
-    public boolean canFitItem(Item item) {
-        return false;
-    }
-
+    public abstract boolean canFitItem(Item item);
 
     /**
      * Returns the mass of the packaging in grams. The packaging weighs 1 gram per square centimeter.
      * @return the mass of the packaging
      */
-    public BigDecimal getMass() {
-        BigDecimal two = BigDecimal.valueOf(2);
+    public abstract BigDecimal getMass();
 
-        return two;
-    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -79,6 +77,7 @@ public class Packaging {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getMaterial());
+        return Objects.hash();
+        //getMaterial(), getLength(), getWidth(), getHeight()
     }
 }
