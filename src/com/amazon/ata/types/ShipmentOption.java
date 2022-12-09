@@ -20,6 +20,7 @@ public class ShipmentOption {
      * The fulfillment center shipping the item.
      */
     private FulfillmentCenter fulfillmentCenter;
+    private Box box;
 
     private ShipmentOption(Builder builder) {
         item = builder.item;
@@ -44,8 +45,8 @@ public class ShipmentOption {
         return packaging;
     }
 
-    public FulfillmentCenter getFulfillmentCenter() {
-        return fulfillmentCenter;
+    public Packaging getBox() {
+        return box;
     }
 
     @Override

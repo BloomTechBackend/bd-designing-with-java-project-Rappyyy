@@ -27,9 +27,6 @@ public abstract class Packaging {
      */
     public Packaging(Material material) {
         this.material = material;
-//        this.length = length;
-//        this.width = width;
-//        this.height = height;
     }
 
     public Material getMaterial() {

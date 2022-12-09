@@ -26,20 +26,8 @@ public class PackagingDatastore {
             createFcPackagingOption("PDX1", Material.CORRUGATE, "40", "40", "40"),
             createFcPackagingOption("PDX1", Material.CORRUGATE, "60", "60", "60"),
             createFcPackagingOption("PDX1", Material.CORRUGATE, "60", "60", "60"),
-            createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "2000"),
+            createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "1000"),
             createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "10000"));
-//          createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "5000");
-//          createPolyBag("YOW4", Material.LAMINATED_PLASTIC, "2000"),
-//          createPolyBag("YOW4", Material.LAMINATED_PLASTIC, "5000"),
-//          createPolyBag("YOW4", Material.LAMINATED_PLASTIC, "10000"),
-//          createPolyBag("IND1", Material.LAMINATED_PLASTIC, "2000"),
-//          createPolyBag("IND1", Material.LAMINATED_PLASTIC, "5000"),
-//          createPolyBag("ABE2", Material.LAMINATED_PLASTIC, "2000"),
-//          createPolyBag("ABE2", Material.LAMINATED_PLASTIC, "6000"),
-//          createPolyBag("PDX1", Material.LAMINATED_PLASTIC, "5000"),
-//          createPolyBag("PDX1", Material.LAMINATED_PLASTIC, "10000"),
-//          createPolyBag("YOW4", Material.LAMINATED_PLASTIC, "5000")
-//    );
 
     /**
      * Create fulfillment center packaging option from provided parameters.
@@ -49,7 +37,6 @@ public class PackagingDatastore {
         FulfillmentCenter fulfillmentCenter = new FulfillmentCenter(fcCode);
         Packaging packaging = new Box(material, new BigDecimal(length), new BigDecimal(width),
                 new BigDecimal(height));
-
         return new FcPackagingOption(fulfillmentCenter, packaging);
     }
 

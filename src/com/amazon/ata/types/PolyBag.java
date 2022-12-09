@@ -6,7 +6,6 @@ public class PolyBag extends Packaging {
     private double mass;
     private BigDecimal volume;
 
-
     /**
      * Instantiates a new Packaging object.
      *
@@ -15,12 +14,6 @@ public class PolyBag extends Packaging {
     public PolyBag(Material material, BigDecimal volume) {
         super(material);
         this.volume = volume;
-
-
-    }
-
-    public BigDecimal getVolume() {
-        return volume;
     }
 
     @Override

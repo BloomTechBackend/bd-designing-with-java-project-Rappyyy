@@ -1,9 +1,9 @@
 package com.amazon.ata.types;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Box extends Packaging {
-    private Material material;
     private BigDecimal length;
     private BigDecimal height;
     private BigDecimal width;
@@ -19,13 +19,14 @@ public class Box extends Packaging {
     // set length for this instance and other values too
     public Box(Material material, BigDecimal length, BigDecimal width, BigDecimal height) {
         super(material);
-        this.material = super.getMaterial();
+        this.length = length;
+        this.width = width;
+        this.height = height;
     }
 
     public BigDecimal getLength() {
         return length;
     }
-
 
     public BigDecimal getWidth() {
         return width;
@@ -51,5 +52,19 @@ public class Box extends Packaging {
         BigDecimal longSidesArea = width.multiply(height).multiply(two);
 
         return endsArea.add(shortSidesArea).add(longSidesArea);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Box)) return false;
+        if (!super.equals(o)) return false;
+        Box box = (Box) o;
+        return getMaterial() == box.getMaterial() && Objects.equals(getLength(), box.getLength()) && Objects.equals(getHeight(), box.getHeight()) && Objects.equals(getWidth(), box.getWidth());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getMaterial(), getLength(), getHeight(), getWidth());
     }
 }
