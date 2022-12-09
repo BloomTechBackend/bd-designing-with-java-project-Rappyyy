@@ -56,15 +56,24 @@ public class Box extends Packaging {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Box)) return false;
-        if (!super.equals(o)) return false;
-        Box box = (Box) o;
-        return getMaterial() == box.getMaterial() && Objects.equals(getLength(), box.getLength()) && Objects.equals(getHeight(), box.getHeight()) && Objects.equals(getWidth(), box.getWidth());
+        if (this == o) {
+            return true;
+        }
+        {
+            if (!(o instanceof Box)) {
+                return false;
+            }
+            if (!super.equals(o)) {
+                return false;
+            }
+            Box box = (Box) o;
+            return Objects.equals(getLength(), box.getLength()) && Objects.equals(getHeight(),
+                    box.getHeight()) && Objects.equals(getWidth(), box.getWidth());
+        }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getMaterial(), getLength(), getHeight(), getWidth());
+        return Objects.hash(super.hashCode(), getLength(), getHeight(), getWidth());
     }
 }

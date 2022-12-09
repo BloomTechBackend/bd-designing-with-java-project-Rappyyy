@@ -38,6 +38,9 @@ public class PrepareShipmentRequest {
     */
     private String fcCode;
 
+    /**
+     * empty constructor.
+     */
     public PrepareShipmentRequest() {
         this.asin   = "0000000000";
         this.description = "Frank Test Default Item - should not ever be needed - only used for testing";
@@ -47,7 +50,15 @@ public class PrepareShipmentRequest {
         this.fcCode = "IND1";
     }
 
-
+    /**
+     *
+     * @param asin initializing asin.
+     * @param description initializing description.
+     * @param length initializing length.
+     * @param width initializing width.
+     * @param height initializing height.
+     * @param fcCode initializing fcCode.
+     */
     public PrepareShipmentRequest(String asin, String description, BigDecimal length, BigDecimal width,
                                   BigDecimal height, String fcCode) {
         this.asin = asin;
@@ -58,6 +69,10 @@ public class PrepareShipmentRequest {
         this.fcCode = fcCode;
     }
 
+    /**
+     *  to build builder.
+     * @param builder to build.
+     */
     public PrepareShipmentRequest(Builder builder) {
         this.asin = builder.asin;
         this.description = builder.description;
@@ -228,9 +243,8 @@ public class PrepareShipmentRequest {
         }
         /**
         * Sets the {@code height} and returns a reference to this Builder so that the methods can be chained together.
-        *
-        * @param fcCode the {@code fcCode} to set
-        * @return a reference to this Builder
+        * @param fcCode the {@code fcCode} to set.
+        * @return a reference to this Builder.
         */
         public Builder withFcCode(String fcCode) {
             this.fcCode = fcCode;
@@ -239,11 +253,11 @@ public class PrepareShipmentRequest {
 
         /**
         * Returns a {@code Item} built from the parameters previously set.
-        *
+       *
         * @return a {@code Item} built with parameters of this {@code Item.Builder}
         */
         public PrepareShipmentRequest build() {
-        return new PrepareShipmentRequest(this);
+            return new PrepareShipmentRequest(this);
         }
     }
 

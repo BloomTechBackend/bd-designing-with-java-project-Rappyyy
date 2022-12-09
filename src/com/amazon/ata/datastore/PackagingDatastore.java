@@ -1,11 +1,9 @@
 package com.amazon.ata.datastore;
-
 import com.amazon.ata.types.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
-
 /**
  * Stores all configured packaging pairs for all fulfillment centers.
  */
