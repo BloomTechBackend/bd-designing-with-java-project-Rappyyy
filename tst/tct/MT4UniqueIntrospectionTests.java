@@ -40,7 +40,6 @@ public class MT4UniqueIntrospectionTests {
                 foundDupeBoxes += 1;
             }
         }
-
         assertEquals(
             expectedNumberOfDupes,
             foundDupeBoxes,
@@ -50,7 +49,6 @@ public class MT4UniqueIntrospectionTests {
                 expectedNumberOfDupes, foundDupeBoxes)
         );
     }
-
     @Test
     void mt4_unique_packagingDAO_getShipmentOptions_doesNotReturnDuplicateBoxes() {
         // GIVEN

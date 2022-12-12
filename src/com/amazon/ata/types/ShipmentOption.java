@@ -40,6 +40,10 @@ public class ShipmentOption {
     public Item getItem() {
         return item;
     }
+    public FulfillmentCenter getFulfillmentCenter() {
+        return fulfillmentCenter;
+    }
+
 
     public Packaging getPackaging() {
         return packaging;

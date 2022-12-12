@@ -9,8 +9,7 @@ import com.amazon.ata.types.Item;
 import com.amazon.ata.types.Packaging;
 import com.amazon.ata.types.ShipmentOption;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Access data for which packaging is available at which fulfillment center.
@@ -19,7 +18,12 @@ public class PackagingDAO {
     /**
      * A list of fulfillment centers with a packaging options they provide.
      */
+//    private List<FcPackagingOption> fcPackagingOptions;
     private List<FcPackagingOption> fcPackagingOptions;
+    private boolean isDuplicate;
+    Set<FcPackagingOption> packagingOptions = new HashSet<>();
+
+    Map<FulfillmentCenter, Set<FcPackagingOption>> map = new HashMap<>();
 
     /**
      * Instantiates a PackagingDAO object.
@@ -27,6 +31,12 @@ public class PackagingDAO {
      */
     public PackagingDAO(PackagingDatastore datastore) {
         this.fcPackagingOptions =  new ArrayList<>(datastore.getFcPackagingOptions());
+        for (FcPackagingOption i : packagingOptions){
+            i.getPackaging();
+        }
+    }
+    public PackagingDAO(boolean isDuplicate) {
+     this.isDuplicate = isDuplicate;
     }
 
     /**
@@ -49,6 +59,7 @@ public class PackagingDAO {
         for (FcPackagingOption fcPackagingOption : fcPackagingOptions) {
             Packaging packaging = fcPackagingOption.getPackaging();
             String fcCode = fcPackagingOption.getFulfillmentCenter().getFcCode();
+            packagingOptions.add(fcPackagingOption);
 
             if (fcCode.equals(fulfillmentCenter.getFcCode())) {
                 fcFound = true;
@@ -72,7 +83,6 @@ public class PackagingDAO {
             throw new NoPackagingFitsItemException(
                     String.format("No packaging at %s fits %s!", fulfillmentCenter.getFcCode(), item));
         }
-
         return result;
     }
 }
