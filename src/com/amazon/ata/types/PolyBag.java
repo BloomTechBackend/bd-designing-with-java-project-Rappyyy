@@ -14,6 +14,9 @@ public class PolyBag extends Packaging {
         super(material);
         this.volume = volume;
     }
+    public BigDecimal getVolume() {
+     return this.volume;
+    }
 
     @Override
     public boolean canFitItem(Item item) {

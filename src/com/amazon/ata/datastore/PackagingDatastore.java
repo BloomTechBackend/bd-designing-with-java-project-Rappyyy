@@ -3,7 +3,10 @@ import com.amazon.ata.types.*;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Stores all configured packaging pairs for all fulfillment centers.
  */
@@ -24,8 +27,10 @@ public class PackagingDatastore {
             createFcPackagingOption("PDX1", Material.CORRUGATE, "40", "40", "40"),
             createFcPackagingOption("PDX1", Material.CORRUGATE, "60", "60", "60"),
             createFcPackagingOption("PDX1", Material.CORRUGATE, "60", "60", "60"),
-            createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "1000"),
+            createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "2000"),
             createPolyBag("IAD2", Material.LAMINATED_PLASTIC, "10000"));
+
+
 
 
     /**

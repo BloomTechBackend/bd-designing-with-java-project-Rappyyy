@@ -18,11 +18,8 @@ public class PackagingDAO {
     /**
      * A list of fulfillment centers with a packaging options they provide.
      */
-//    private List<FcPackagingOption> fcPackagingOptions;
-    private List<FcPackagingOption> fcPackagingOptions;
-    private boolean isDuplicate;
-    Set<FcPackagingOption> packagingOptions = new HashSet<>();
 
+    private HashSet<FcPackagingOption> fcPackagingOptions;
     Map<FulfillmentCenter, Set<FcPackagingOption>> map = new HashMap<>();
 
     /**
@@ -30,13 +27,10 @@ public class PackagingDAO {
      * @param datastore Where to pull the data from for fulfillment center/packaging available mappings.
      */
     public PackagingDAO(PackagingDatastore datastore) {
-        this.fcPackagingOptions =  new ArrayList<>(datastore.getFcPackagingOptions());
-        for (FcPackagingOption i : packagingOptions){
-            i.getPackaging();
-        }
-    }
-    public PackagingDAO(boolean isDuplicate) {
-     this.isDuplicate = isDuplicate;
+        this.fcPackagingOptions =  new HashSet<>(datastore.getFcPackagingOptions());
+     for (FcPackagingOption fcPackagingOption : fcPackagingOptions){
+         map.put(fcPackagingOption.getFulfillmentCenter(), fcPackagingOptions);
+     }
     }
 
     /**
@@ -59,7 +53,6 @@ public class PackagingDAO {
         for (FcPackagingOption fcPackagingOption : fcPackagingOptions) {
             Packaging packaging = fcPackagingOption.getPackaging();
             String fcCode = fcPackagingOption.getFulfillmentCenter().getFcCode();
-            packagingOptions.add(fcPackagingOption);
 
             if (fcCode.equals(fulfillmentCenter.getFcCode())) {
                 fcFound = true;
@@ -69,6 +62,7 @@ public class PackagingDAO {
                             .withPackaging(packaging)
                             .withFulfillmentCenter(fulfillmentCenter)
                             .build());
+
                 }
             }
         }
