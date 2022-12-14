@@ -1,11 +1,47 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+'https://plantuml.com/class-diagram
 
-autonumber
+interface CostStrategy {
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
++getCost(ShipmentOption) : ShipmentCost
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+}
+
+class MonetaryCostStrategy {
+
+ -LABOR_COST = BigDecimal
+ -materialCostPerGram : Map<Material, BigDecimal>
+ +MonetaryCostStrategy()
+ +getCost(ShipmentOption) : ShipmentCost
+
+}
+
+class CarbonCostStrategy {
+
+ -materialCostPerGram : Map<Material, BigDecimal>
+ +CarbonCostStrategy()
++getCost(ShipmentOption) : ShipmentCost
+
+}
+
+class WeightedCostStrategy {
+
++getCost(ShipmentOption) : ShipmentCost
+
+}
+
+enum Material {
+
++ CORRUGATE
++ LAMINATED_PLASTIC
+
+}
+
+MonetaryCostStrategy ..|> CostStrategy
+CarbonCostStrategy ..|> CostStrategy
+WeightedCostStrategy ..|> CostStrategy
+WeightedCostStrategy --> MonetaryCostStrategy
+WeightedCostStrategy --> CarbonCostStrategy
+
+
 @enduml

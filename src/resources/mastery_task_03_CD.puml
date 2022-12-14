@@ -19,8 +19,8 @@ class Box {
 }
 
 class PolyBag {
-
-+volume : BigDecimal
+-mass : double
+-volume : BigDecimal
 +getMass(): BigDecimal
 +canFitItem(Item): boolean
 

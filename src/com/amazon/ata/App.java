@@ -19,7 +19,7 @@ public class App {
     }
 
     private static CostStrategy getCostStrategy() {
-        return new MonetaryCostStrategy();
+        return new WeightedCostStrategy();
     }
 
     public static ShipmentService getShipmentService() {

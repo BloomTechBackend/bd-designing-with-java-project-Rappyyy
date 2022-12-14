@@ -35,3 +35,4 @@ public class CarbonCostStrategy implements CostStrategy {
         return new ShipmentCost(shipmentOption, cost);
     }
 }
+
