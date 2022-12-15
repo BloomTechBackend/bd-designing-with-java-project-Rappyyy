@@ -32,8 +32,9 @@ public class MonetaryCostStrategy implements CostStrategy {
         BigDecimal materialCost = this.materialCostPerGram.get(packaging.getMaterial());
 
         BigDecimal cost = packaging.getMass().multiply(materialCost)
-            .add(LABOR_COST);
+                .add(LABOR_COST);
 
         return new ShipmentCost(shipmentOption, cost);
     }
+
 }
