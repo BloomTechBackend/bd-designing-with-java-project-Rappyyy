@@ -24,7 +24,7 @@ public class PolyBag extends Packaging {
         BigDecimal itemLength = item.getLength();
         BigDecimal itemWidth = item.getWidth();
         BigDecimal itemVolume = itemHeight.multiply(itemLength).multiply(itemWidth);
-        return volume.compareTo(itemVolume) < 0;
+        return volume.compareTo(itemVolume) == 0;
     }
     @Override
     public BigDecimal getMass() {
