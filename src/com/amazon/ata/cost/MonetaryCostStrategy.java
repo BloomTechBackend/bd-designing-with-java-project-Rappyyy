@@ -1,5 +1,4 @@
 package com.amazon.ata.cost;
-
 import com.amazon.ata.types.Material;
 import com.amazon.ata.types.Packaging;
 import com.amazon.ata.types.ShipmentCost;
@@ -35,5 +34,9 @@ public class MonetaryCostStrategy implements CostStrategy {
             .add(LABOR_COST);
 
         return new ShipmentCost(shipmentOption, cost);
+    }
+
+    public BigDecimal getMonetaryCostPerGram(Material material) {
+        return materialCostPerGram.get(material);
     }
 }

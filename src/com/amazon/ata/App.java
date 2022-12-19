@@ -7,11 +7,18 @@ import com.amazon.ata.datastore.PackagingDatastore;
 import com.amazon.ata.service.ShipmentService;
 
 public class App {
+
     /* don't instantiate me */
     private App() {}
 
     private static PackagingDatastore getPackagingDatastore() {
         return new PackagingDatastore();
+    }
+    private static MonetaryCostStrategy getMonetaryCostStrategy() {
+        return new MonetaryCostStrategy();
+    }
+    private static CarbonCostStrategy getcarbonCostStrategy() {
+        return new CarbonCostStrategy();
     }
 
     private static PackagingDAO getPackagingDAO() {
@@ -19,7 +26,7 @@ public class App {
     }
 
     private static CostStrategy getCostStrategy() {
-        return new WeightedCostStrategy();
+        return new WeightedCostStrategy(getMonetaryCostStrategy(),getcarbonCostStrategy());
     }
 
     public static ShipmentService getShipmentService() {

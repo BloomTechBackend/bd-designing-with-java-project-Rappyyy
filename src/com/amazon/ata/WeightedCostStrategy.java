@@ -1,11 +1,11 @@
 package com.amazon.ata;
 
 import com.amazon.ata.cost.CostStrategy;
+import com.amazon.ata.cost.MonetaryCostStrategy;
 import com.amazon.ata.types.Material;
 import com.amazon.ata.types.Packaging;
 import com.amazon.ata.types.ShipmentCost;
 import com.amazon.ata.types.ShipmentOption;
-import tct.basewrappers.BoxWrapper;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -13,24 +13,37 @@ import java.util.Map;
 
 public class WeightedCostStrategy implements CostStrategy {
 
-    private final Map<Material, BigDecimal> materialCostPerGram;
+    private static final BigDecimal LABOR_COST = BigDecimal.valueOf(0.33);
+    private final Map<Material, BigDecimal> weightedCostPerGram;
 
-    /**
-     * Initializes a MonetaryCostStrategy.
-     */
-    public WeightedCostStrategy() {
-        materialCostPerGram = new HashMap<>();
-        materialCostPerGram.put(Material.CORRUGATE, BigDecimal.valueOf(0.017));
-        materialCostPerGram.put(Material.LAMINATED_PLASTIC, BigDecimal.valueOf(0.012));
+    public WeightedCostStrategy(MonetaryCostStrategy monetaryWrapper, CarbonCostStrategy carbonWrapper) {
+        weightedCostPerGram = new HashMap<>();
+
+        BigDecimal carbonCostPerGram = carbonWrapper.getMaterialCostPerGram(Material.CORRUGATE);
+        BigDecimal carbonCostWeighted = carbonCostPerGram.multiply(BigDecimal.valueOf(0.20));
+        BigDecimal monetaryCostPerGram = monetaryWrapper.getMonetaryCostPerGram(Material.CORRUGATE);
+        BigDecimal monetaryCostWeighted = monetaryCostPerGram.multiply(BigDecimal.valueOf(0.80));
+        BigDecimal weightedCostBox = carbonCostWeighted.add(monetaryCostWeighted);
+
+        weightedCostPerGram.put(Material.CORRUGATE, weightedCostBox);
+
+
+        BigDecimal weightedCostPolyBag = ((carbonWrapper.getMaterialCostPerGram(Material.LAMINATED_PLASTIC))
+                .multiply(BigDecimal.valueOf(0.20)))
+                .add((monetaryWrapper.getMonetaryCostPerGram(Material.LAMINATED_PLASTIC))
+                        .multiply(BigDecimal.valueOf(0.80)));
+        weightedCostPerGram.put(Material.LAMINATED_PLASTIC, weightedCostPolyBag);
     }
+
+
 
     @Override
     public ShipmentCost getCost(ShipmentOption shipmentOption) {
         Packaging packaging = shipmentOption.getPackaging();
-        BigDecimal materialCost = this.materialCostPerGram.get(packaging.getMaterial());
+        BigDecimal weightedCostPerGram = this.weightedCostPerGram.get(packaging.getMaterial());
 
-        BigDecimal cost = packaging.getMass().multiply(materialCost);
+        BigDecimal weightedCost = packaging.getMass().multiply(weightedCostPerGram).add(LABOR_COST);
 
-        return new ShipmentCost(shipmentOption, cost);
+        return new ShipmentCost(shipmentOption, weightedCost);
     }
 }

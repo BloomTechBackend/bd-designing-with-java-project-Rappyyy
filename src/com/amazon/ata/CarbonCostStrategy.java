@@ -5,7 +5,6 @@ import com.amazon.ata.types.Material;
 import com.amazon.ata.types.Packaging;
 import com.amazon.ata.types.ShipmentCost;
 import com.amazon.ata.types.ShipmentOption;
-import tct.basewrappers.BoxWrapper;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 public class CarbonCostStrategy implements CostStrategy {
 
-    private static final BigDecimal LABOR_COST = BigDecimal.valueOf(0.43);
     private final Map<Material, BigDecimal> materialCostPerGram;
 
     /**
@@ -33,6 +31,9 @@ public class CarbonCostStrategy implements CostStrategy {
         BigDecimal cost = packaging.getMass().multiply(materialCost);
 
         return new ShipmentCost(shipmentOption, cost);
+    }
+    public BigDecimal getMaterialCostPerGram(Material material) {
+        return materialCostPerGram.get(material);
     }
 }
 
