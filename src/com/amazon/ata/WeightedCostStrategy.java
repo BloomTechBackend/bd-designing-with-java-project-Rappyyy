@@ -16,6 +16,11 @@ public class WeightedCostStrategy implements CostStrategy {
     private static final BigDecimal LABOR_COST = BigDecimal.valueOf(0.33);
     private final Map<Material, BigDecimal> weightedCostPerGram;
 
+    /**
+     *
+     * @param monetaryWrapper for the monetary wrapper.
+     * @param carbonWrapper for the carbon wrapper.
+     */
     public WeightedCostStrategy(MonetaryCostStrategy monetaryWrapper, CarbonCostStrategy carbonWrapper) {
         weightedCostPerGram = new HashMap<>();
 

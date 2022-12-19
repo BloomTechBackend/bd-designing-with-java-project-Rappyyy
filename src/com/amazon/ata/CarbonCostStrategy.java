@@ -32,8 +32,13 @@ public class CarbonCostStrategy implements CostStrategy {
 
         return new ShipmentCost(shipmentOption, cost);
     }
+
+    /**
+     *
+     * @param material to get Material Cost per Gram.
+     * @return
+     */
     public BigDecimal getMaterialCostPerGram(Material material) {
         return materialCostPerGram.get(material);
     }
 }
-
