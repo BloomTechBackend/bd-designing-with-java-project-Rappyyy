@@ -8,9 +8,14 @@ import com.amazon.ata.types.*;
 import java.util.*;
 
 public class PackagingDAO {
+<<<<<<< HEAD
 
     private Map<FulfillmentCenter, Set<FcPackagingOption>> fcPackagingOptions;
 
+=======
+    private Map<FulfillmentCenter, Set<FcPackagingOption>> fcPackagingOptions;
+
+>>>>>>> 46773c52814763425b62ba4b0dfa8ad5e0f688d0
 
     /**
      * Instantiates a PackagingDAO object.
@@ -18,7 +23,10 @@ public class PackagingDAO {
      * @param datastore Where to pull the data from for fulfillment center/packaging available mappings.
      */
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46773c52814763425b62ba4b0dfa8ad5e0f688d0
     /*
      * This constructor will instantiate a hashmap containing info from PackagingDataStore
      * but more neat and organized by fulfillmentcenter id.
@@ -37,7 +45,10 @@ public class PackagingDAO {
 
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 46773c52814763425b62ba4b0dfa8ad5e0f688d0
     }
 
 
@@ -59,6 +70,7 @@ public class PackagingDAO {
         boolean fcFound = false;
         List<ShipmentOption> result = new ArrayList<>();
         boolean doesContain = fcPackagingOptions.containsKey(fulfillmentCenter);
+<<<<<<< HEAD
 
         // TODO Ensure No Repeats - if fcCode is null and not contained in hashmap (merged both together)
         // remove else if and run the tct-
@@ -90,6 +102,43 @@ public class PackagingDAO {
 
             }
 
+=======
+
+        // TODO Ensure No Repeats - if fcCode is null and not contained in hashmap (merged both together)
+        // remove else if and run the tct-
+        if (fcPackagingOptions.get(fulfillmentCenter) == null) {
+            System.out.println("HashMap cannot call a 'null' fulfillmentcenter!");
+            throw new UnknownFulfillmentCenterException();
+        }
+        //        } else if (doesContain == false) {
+        //            System.out.println("HashMap does not contain this fulfilmentcenter key, doesContain = false!");
+        //            throw new UnknownFulfillmentCenterException();
+        //        }
+
+        for (FcPackagingOption fcPackagingOption : fcPackagingOptions.get(fulfillmentCenter)) {
+
+            Packaging thisPackaging = fcPackagingOption.getPackaging();
+            System.out.println(String.format(" This Packaging Option's fulfilmentCenter : %s ", fcPackagingOption
+                    .getFulfillmentCenter().getFcCode()));
+            String thisFcCode = fulfillmentCenter.getFcCode();
+
+            // if this fccode is a valid existing fulfilmentcenter code, then add to hashmap at end...
+            if (thisFcCode.equals(fcPackagingOption.getFulfillmentCenter().getFcCode())) {
+                fcFound = true;
+                System.out.println(" FCCode Match for %s  found" + thisFcCode);
+
+                // if this item fits in this packaging
+                if (thisPackaging.canFitItem(item)) {
+                    ShipmentOption thisShipmentOption = ShipmentOption.builder().withPackaging(thisPackaging)
+                            .withItem(item).withFulfillmentCenter(fulfillmentCenter).build();
+
+                    result.add(thisShipmentOption);
+                }
+
+
+            }
+
+>>>>>>> 46773c52814763425b62ba4b0dfa8ad5e0f688d0
         }
 
         if (!fcFound) {
@@ -120,4 +169,8 @@ public class PackagingDAO {
         }
         return fcPackagingOptions;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 46773c52814763425b62ba4b0dfa8ad5e0f688d0
