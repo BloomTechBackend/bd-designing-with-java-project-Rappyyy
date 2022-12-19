@@ -7,12 +7,17 @@ import com.amazon.ata.types.FulfillmentCenter;
 import com.amazon.ata.types.Item;
 import com.amazon.ata.types.ShipmentOption;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ShipmentServiceTest {
+
+    @Mock
+    PackagingDAO packagingDAO;
 
     private Item smallItem = Item.builder()
             .withHeight(BigDecimal.valueOf(1))
@@ -29,10 +34,15 @@ class ShipmentServiceTest {
             .build();
 
     private FulfillmentCenter existentFC = new FulfillmentCenter("ABE2");
+
+
     private FulfillmentCenter nonExistentFC = new FulfillmentCenter("NonExistentFC");
 
+    @InjectMocks
     private ShipmentService shipmentService = new ShipmentService(new PackagingDAO(new PackagingDatastore()),
             new MonetaryCostStrategy());
+
+
 
     @Test
     void findBestShipmentOption_existentFCAndItemCanFit_returnsShipmentOption() {

@@ -19,6 +19,10 @@ public class PolyBag extends Packaging {
 
     }
 
+    /**
+     *
+     * @return returns volume.
+     */
     public BigDecimal getVolume() {
         return volume;
     }
