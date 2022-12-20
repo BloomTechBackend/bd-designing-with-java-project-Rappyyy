@@ -49,7 +49,8 @@ public class ShipmentService {
             List<ShipmentOption> results = this.packagingDAO.findShipmentOptions(item, fulfillmentCenter);
             return getLowestCostShipmentOption(results);
         } catch (Exception e) {
-            return null;
+            ShipmentOption result = null;
+           return result;
         }
     }
 

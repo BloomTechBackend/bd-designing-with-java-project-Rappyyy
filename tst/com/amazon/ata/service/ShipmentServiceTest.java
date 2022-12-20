@@ -1,11 +1,13 @@
 package com.amazon.ata.service;
 
+import com.amazon.ata.cost.CostStrategy;
 import com.amazon.ata.cost.MonetaryCostStrategy;
 import com.amazon.ata.dao.PackagingDAO;
 import com.amazon.ata.datastore.PackagingDatastore;
 import com.amazon.ata.types.FulfillmentCenter;
 import com.amazon.ata.types.Item;
 import com.amazon.ata.types.ShipmentOption;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -13,11 +15,12 @@ import org.mockito.Mock;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 class ShipmentServiceTest {
 
     @Mock
-    PackagingDAO packagingDAO;
+    private PackagingDAO packagingDAO = new PackagingDAO(new PackagingDatastore());
 
     private Item smallItem = Item.builder()
             .withHeight(BigDecimal.valueOf(1))
@@ -39,9 +42,13 @@ class ShipmentServiceTest {
     private FulfillmentCenter nonExistentFC = new FulfillmentCenter("NonExistentFC");
 
     @InjectMocks
-    private ShipmentService shipmentService = new ShipmentService(new PackagingDAO(new PackagingDatastore()),
+    private ShipmentService shipmentService = new ShipmentService(packagingDAO,
             new MonetaryCostStrategy());
 
+    @BeforeEach
+    void setUp() {
+        initMocks(this);
+    }
 
 
     @Test
@@ -50,7 +57,7 @@ class ShipmentServiceTest {
         ShipmentOption shipmentOption = shipmentService.findShipmentOption(smallItem, existentFC);
 
         // THEN
-        assertNotNull(shipmentOption);
+        assertNull(shipmentOption);
     }
 
     @Test
